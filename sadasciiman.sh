@@ -126,7 +126,7 @@ clear
 echo "1 player or 2 players? (enter 1 or 2):"
 read players
 
-if [[ $players -ne 1 || $players -ne 2 ]]
+if [[ "$players" != 1 || "$players" != 2 ]]
 then
     isValidInput=0
 fi
