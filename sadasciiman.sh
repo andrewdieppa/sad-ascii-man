@@ -104,6 +104,7 @@ wordBank=("potato"
 "lake"
 "look")
 
+isValidInput=1
 answer="andrew is cool"
 answerArray=()
 playArray=()
@@ -125,15 +126,30 @@ clear
 echo "1 player or 2 players? (enter 1 or 2):"
 read players
 
-if [ $players -eq 1 ]
+if [[ $players -ne 1 || $players -ne 2 ]]
 then
-    RANDOM=$$
-    answer=${wordBank[(($RANDOM%${#wordBank[@]}))]}
-elif [ $players -eq 2 ]
-then
-    echo "Player 1 - enter a secret word or phrase:"
-    read answer
+    isValidInput=0
 fi
+
+while [ $isValidInput -eq 0 ]
+do
+    if [ $players -eq 1 ]
+    then
+        RANDOM=$$
+        answer=${wordBank[(($RANDOM%${#wordBank[@]}))]}
+        isValidInput=1
+    elif [ $players -eq 2 ]
+    then
+        echo "Player 1 - enter a secret word or phrase:"
+        read answer
+        isValidInput=1
+    else
+        clear
+        echo "1 player or 2 players? (enter 1 or 2):"
+        echo "Invalid choice..."
+        read players
+    fi
+done
 
 answerLen=${#answer}
 
